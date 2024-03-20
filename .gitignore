@@ -1,0 +1,4 @@
+#add .idea to .gitignore
+.idea
+.idea/*
+/wp-content/plugins/google-listings-and-ads/*
