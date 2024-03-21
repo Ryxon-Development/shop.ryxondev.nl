@@ -6,13 +6,13 @@ if ( !defined( 'ABSPATH' ) )exit;
 add_filter( 'best_shop_settings', 'starter_shop_settings' );
 
 function starter_shop_settings( $values ) {
-  $values[ 'primary_color' ] = '#0B7AF0';
-  $values[ 'secondary_color' ] = '#d62626';
-  $values[ 'heading_font' ] = 'Poppins';
-  $values[ 'body_font' ] = 'Poppins';
+  $values[ 'primary_color' ] = '#f66d1f';
+  $values[ 'secondary_color' ] = '#f66d1fb8';
+  $values[ 'heading_font' ] = 'Verdana';
+  $values[ 'body_font' ] = 'Verdana';
     
   $values[ 'woo_bar_color' ] = '#000000';
-  $values[ 'woo_bar_bg_color' ] = '#58A9FF';
+  $values[ 'woo_bar_bg_color' ] = '#f66d1f';
     
   $values[ 'preloader_enabled' ] = false;
 
@@ -171,6 +171,15 @@ function starter_shop_header_style() {
 
 add_action( 'after_setup_theme', 'starter_shop_header_style' );
 
+// Modify the "View Cart" link to point to /cart
+function modify_view_cart_url($message) {
+    // Replace the existing link with the correct one
+    $new_link = '<a href="' . wc_get_cart_url() . '" tabindex="1" class="button wc-forward">View cart</a>';
+    $message = str_replace('<a href="?p=8"', $new_link, $message);
+    return $message;
+}
+add_filter('wc_add_to_cart_message_html', 'modify_view_cart_url');
 
+require get_stylesheet_directory() . '/inc/widgets/ryxonwidget.php';
 
 

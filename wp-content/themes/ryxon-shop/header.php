@@ -46,7 +46,7 @@ if ( !class_exists( 'WooCommerce' ) && $best_shop_header_layout === 'woocommerce
 }
 
 ?>
-<header id="masthead" class="site-header style-one 
+<header id="masthead" class="site-header style-one
         <?php if ($best_shop_header_layout==='transparent-header') { 
             echo esc_attr($best_shop_header_layout); 
         } if($best_shop_header_layout==='woocommerce-bar'){
@@ -238,4 +238,3 @@ if (best_shop_get_setting('preloader_enabled')){
 </div>
 <?php
 }
-
