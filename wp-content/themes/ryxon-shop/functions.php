@@ -180,6 +180,6 @@ function modify_view_cart_url($message) {
 }
 add_filter('wc_add_to_cart_message_html', 'modify_view_cart_url');
 
-require get_stylesheet_directory() . '/inc/widgets/ryxonwidget.php';
+require get_stylesheet_directory() . '/inc/widgets/pricetable/pricetable.php';
 
 
