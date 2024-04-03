@@ -1,9 +1,8 @@
-body {
-    background: darkgray;
-}
-.textwidget {
+
+
+.text_widget {
     background: white;
-    padding-bottom: 20px;
+    padding-bottom: 35px;
     border-radius: 10px;
 }
 .elementor-repeater-field {
@@ -11,12 +10,12 @@ body {
     border: 2px solid white !important;
     margin: 10px 0;
 }
-.textwidget .heading {
-    padding: 15px 0;
+.text_widget .heading {
+    padding: 20px 0;
     font-family: 'Roboto' !important;
     text-align: center;
 }
-.textwidget .heading h2 {
+.text_widget .heading h2 {
     margin: 0;
     padding: 0;
     line-height: 1.2;
@@ -25,21 +24,21 @@ body {
     color: #fff;
     font-family: 'Roboto' !important;
 }
-.textwidget .heading p{
+.text_widget .heading p{
     margin: 0;
     padding: 0;
     font-size: 13px;
     font-weight: 400;
     color: #fff;
 }
-.textwidget .props {
+.text_widget .props {
     display: flex;
     width: 100%;
     text-align: center;
     justify-content: space-evenly;
 }
 
-.textwidget .button {
+.text_widget .button {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -63,11 +62,12 @@ body {
 }
 .elementor-price-table__currency {
     line-height: 1;
-    font-size: .3em;
-    margin-right: 3px;
-    align-self: flex-start;
+    font-size: 24px;
+    margin-right: 8px;
+    align-self: center;
     color: #555;
     font-weight: 800;
+    margin-top: 0;
 }
 .elementor-price-table__integer-part {
     display: flex;
@@ -77,7 +77,7 @@ body {
     flex-direction: row;
     color: #555;
     font-weight: 800;
-    font-size: 65px;
+    font-size: 62px;
     line-height: .8;
 }
 .elementor-typo-excluded {
@@ -86,7 +86,86 @@ body {
     text-transform: none;
     font-weight: 400;
     font-size: medium;
-    font-style: normal;
+    font-style: italic;
     width: 100%;
     text-align: center;
+    font-size: 12px;
+    padding-top: 4px;
+}
+
+.props li {
+    font-size: 14px;
+    font-family: 'Roboto' !important;
+    font-weight: 700;
+    margin-top: 5px !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.text_widget i {
+    font-size: 18.2px !important;
+}
+
+.props ul {
+    margin: 0;
+    margin-bottom: 20px;
+}
+.props .propname {
+    padding-left: 8px;
+    color: #555;
+    height: 25px;
+    line-height: 25px;
+    display: inline-block;
+}
+.text_widget .ribbon {
+    position: absolute;
+    top: 0;
+    left: auto;
+    right: 0;
+    transform: rotate(90deg);
+    width: 150px;
+    overflow: hidden;
+    height: 150px;
+}
+.text_widget .ribbon .name {
+    text-align: center;
+    left: 0;
+    width: 200%;
+    transform: translateY(-50%) translateX(-50%) translateX(35px) rotate(-45deg);
+    margin-top: 35px;
+    font-size: 12px;
+    line-height: 2;
+    font-weight: 800;
+    text-transform: uppercase;
+    background: #000;
+    color: white;
+    font-family: 'Roboto' !important;
+}
+div.button {
+    height: 52px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-family: 'Roboto' !important;
+    background: white !important;
+}
+div.button a {
+    padding: 16px 32px !important;
+    background: #139f13;
+    color: white;
+    font-weight: bold;
+    /*border-bottom: 5px solid #bcbcbc;*/
+    transition: none;
+    /*border-radius: 3px !important;*/
+    box-shadow: 1px 1px 3px #000;
+}
+div.button a:hover {
+    transition: none;
+    /*margin-top: 2px;*/
+    /*border-bottom: 3px solid #bcbcbc;*/
+    color: white !important;
+    text-shadow: 0 0 8px #fff;
+    text-decoration: none;
+    background: #04c504;
 }

@@ -1,16 +1,19 @@
 <?php
-if (!class_exists('WooCommerce')) return;
+if (!class_exists('WP_Widget')) return;
 
-class Price_Table_Widget extends WC_Widget {
+class Price_Table_Widget extends WP_Widget {
 
     function __construct() {
-        $this->widget_cssclass    = 'ryxon_widget';
-        $this->widget_description = __('Displays price information!', 'best-shop');
-        $this->widget_id          = 'ryxon_widget_id';
-        $this->widget_name        = __('Price Table Pro', 'best-shop');
-        parent::__construct();
+        parent::__construct(
+            'ryxon_widget_id', // Base ID
+            'Price Table Pro', // Name
+            array(
+                'description' => 'Displays price information!'
+            )
+        );
     }
 
+    //Front-end display of widget
     function widget($args, $instance) {
 
         $properties = !empty($instance['properties']) ? $instance['properties'] : [];
@@ -19,9 +22,15 @@ class Price_Table_Widget extends WC_Widget {
         $button_txt = !empty($instance['button_txt']) ? $instance['button_txt'] : '';
         $button_url = !empty($instance['button_url']) ? $instance['button_url'] : '';
         $color = !empty($instance['color']) ? $instance['color'] : '';
+        $ribbon = !empty($instance['ribbon']) ? $instance['ribbon'] : '';
         ?>
 
-        <div class='textwidget' style='width:100%;'>
+        <div class='text_widget' style='width:100%;'>
+
+            <div class="ribbon">
+                <div class="name"><?=$ribbon; ?></div>
+            </div>
+
             <div class="heading" style="background: <?= $color; ?>">
                 <h2><?= $title ?></h2>
                 <p><?= $description ?></p>
@@ -34,28 +43,26 @@ class Price_Table_Widget extends WC_Widget {
             </div>
 
             <div class="props">
-            <?php if (!empty($properties)) : ?>
-                <ul style="list-style: none; padding: 0;">
-                    <?php foreach ($properties as $property) : ?>
-                        <li>
-                            <i style="color: <?=$property['color']?>" class="fa fa-<?= $property['icon'] ?>"></i>
-                            <?= $property['name'] ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
+                <?php if (!empty($properties)) : ?>
+                    <ul style="list-style: none; padding: 0;">
+                        <?php foreach ($properties as $property) : ?>
+                            <li>
+                                <i style="color: <?=$property['color']?>" class="fa fa-<?= $property['icon'] ?>"></i>
+                                <span class="propname"><?= $property['name'] ?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
             </div>
 
             <div class="button">
                 <a class="elementor-price-table__button elementor-button elementor-size-md" href="<?= $button_url ?>"> <?= $button_txt ?> </a>
             </div>
-
         </div>
-
         <?php
-
     }
 
+    //Back-end widget form
     function form($instance) {
         $title = !empty($instance['title']) ? $instance['title'] : '';
         $description = !empty($instance['description']) ? $instance['description'] : '';
@@ -66,6 +73,7 @@ class Price_Table_Widget extends WC_Widget {
         $price = !empty($instance['price']) ? $instance['price'] : '';
         $price_txt = !empty($instance['price_txt']) ? $instance['price_txt'] : '';
         $color = !empty($instance['color']) ? $instance['color'] : '';
+        $ribbon = !empty($instance['ribbon']) ? $instance['ribbon'] : '';
         ?>
         <link rel="stylesheet" id="font-awesome-official-css" href="https://use.fontawesome.com/releases/v6.5.1/css/all.css" media="all">
 
@@ -91,8 +99,13 @@ class Price_Table_Widget extends WC_Widget {
                     <input data-jscolor="{}" type="text" class="color-picker" id="<?php echo $this->get_field_id('description'); ?>"   name="<?php echo $this->get_field_name('color'); ?>"  value="<?php echo esc_attr($color); ?>">
                 </p>
 
+                <p>
+                    <label for="<?php echo $this->get_field_id('ribbon'); ?>"><?php _e('Ribbon:', 'best-shop'); ?></label>
+                    <input class="widefat" type="text" id="<?php echo $this->get_field_id('ribbon'); ?>" name="<?php echo $this->get_field_name('ribbon'); ?>" value="<?php echo esc_attr($ribbon); ?>">
+                </p>
+
             </details>
-<!--            price!-->
+            <!--            price!-->
             <details>
                 <summary>Price</summary>
                 <p>
@@ -117,16 +130,16 @@ class Price_Table_Widget extends WC_Widget {
                     <?php if (!empty($properties)) : ?>
                         <?php foreach ($properties as $index => $property) :
 
-                            $name = esc_attr($property['name']);
-                            $icon = esc_attr($property['icon']);
-                            $color = esc_attr($property['color']);
-                            ?>
-                            <script>
-                                jQuery(document).ready(function($) {
-                                    addProp('<?php echo $field; ?>', '<?php echo $index; ?>', '<?php echo $name; ?>', '<?php echo $icon; ?>', '<?php echo $color; ?>' );
-                                });
-                            </script>
-                        <?php endforeach; ?>
+                        $name = esc_attr($property['name']);
+                        $icon = esc_attr($property['icon']);
+                        $color = esc_attr($property['color']);
+                        ?>
+                        <script>
+                            jQuery(document).ready(function($) {
+                                addProp('<?php echo $field; ?>', '<?php echo $index; ?>', '<?php echo $name; ?>', '<?php echo $icon; ?>', '<?php echo $color; ?>' );
+                            });
+                        </script>
+                    <?php endforeach; ?>
                     <?php else : ?>
                         <script>
                             jQuery(document).ready(function($) {
@@ -135,7 +148,7 @@ class Price_Table_Widget extends WC_Widget {
                         </script>
                     <?php endif; ?>
                 </div>
-                
+
                 <br/>
                 <button class="elementor-button elementor-repeater-add"><?php _e('Add Property', 'best-shop'); ?></button>
             </details>
@@ -240,11 +253,12 @@ class Price_Table_Widget extends WC_Widget {
                 });
             });
         </script>
-
         <?php
     }
 
+    //Sanitize widget form values as they are saved
     function update($new_instance, $old_instance) {
+        $old_instance['ribbon'] = !empty($new_instance['ribbon']) ? $new_instance['ribbon'] : '';
         $old_instance['content'] = !empty($new_instance['content']) ? $new_instance['content'] : '';
         $old_instance['properties'] = !empty($new_instance['properties']) ? $new_instance['properties'] : [];
         $old_instance['title'] = sanitize_text_field($new_instance['title']);
